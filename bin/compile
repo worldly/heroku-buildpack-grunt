@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e            # fail fast
+set -o pipefail   # don't ignore exit codes when piping output
+# set -x          # enable debugging
+
+# Configure directories
+build_dir=$1
+cache_dir=$2
+env_file=$3
+
+bp_dir=$(cd $(dirname $0); cd ..; pwd)
+
+# Load some convenience functions like status(), echo(), and indent()
+source $bp_dir/bin/common.sh
+
+if [ -f $build_dir/node_modules/grunt-cli/bin/grunt ]; then
+  $build_dir/node_modules/grunt-cli/bin/grunt heroku
+else
+  error "Ensure grunt-cli is included with your NPM package.json"
+fi
+
+
