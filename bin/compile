@@ -2,7 +2,7 @@
 
 set -e            # fail fast
 set -o pipefail   # don't ignore exit codes when piping output
-# set -x          # enable debugging
+set -x            # enable debugging
 
 # Configure directories
 build_dir=$1
@@ -14,8 +14,13 @@ bp_dir=$(cd $(dirname $0); cd ..; pwd)
 # Load some convenience functions like status(), echo(), and indent()
 source $bp_dir/bin/common.sh
 
+status "Building grunt"
+
 if [ -f $build_dir/node_modules/grunt-cli/bin/grunt ]; then
-  $build_dir/node_modules/grunt-cli/bin/grunt heroku
+    (
+      cd $build_dir
+      vendor/node/bin/node node_modules/grunt-cli/bin/grunt heroku:production
+    )
 else
   error "Ensure grunt-cli is included with your NPM package.json"
 fi
