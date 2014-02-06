@@ -25,4 +25,13 @@ else
   error "Ensure grunt-cli is included with your NPM package.json"
 fi
 
+status "Cleaning up no-longer-needed stuff"
 
+to_delete=(
+  node_modules/
+  vendor/node/
+)
+
+for not_needed_path in "${to_delete[@]}"; do
+  rm -r $build_dir/$not_needed_path
+done
