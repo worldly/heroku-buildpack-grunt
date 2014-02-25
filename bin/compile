@@ -19,6 +19,7 @@ status "Building grunt"
 if [ -f $build_dir/node_modules/grunt-cli/bin/grunt ]; then
     (
       cd $build_dir
+      PATH=$PATH:vendor/node/bin
       vendor/node/bin/node node_modules/grunt-cli/bin/grunt heroku:production
     )
 else
