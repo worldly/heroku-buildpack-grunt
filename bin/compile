@@ -7,12 +7,24 @@ set -x            # enable debugging
 # Configure directories
 build_dir=$1
 cache_dir=$2
-env_file=$3
+env_dir=$3
 
 bp_dir=$(cd $(dirname $0); cd ..; pwd)
 
 # Load some convenience functions like status(), echo(), and indent()
 source $bp_dir/bin/common.sh
+
+status "Loading environment variables"
+
+whitelist_regex=${2:-'*.'}
+blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
+if [ -d "$env_dir" ]; then
+  for e in $(ls $env_dir); do
+    echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
+    export "$e=$(cat $env_dir/$e)"
+    :
+  done
+fi
 
 status "Building grunt"
 
