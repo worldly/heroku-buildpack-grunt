@@ -23,8 +23,6 @@ if [ -d "$env_dir" ]; then
   done
 fi
 
-printenv
-
 status "Building grunt"
 
 if [ -f $build_dir/node_modules/grunt-cli/bin/grunt ]; then
