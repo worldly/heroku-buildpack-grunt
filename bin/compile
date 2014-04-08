@@ -28,6 +28,8 @@ fi
 
 status "Building grunt"
 
+echo $INTERCOM_APP_ID
+
 if [ -f $build_dir/node_modules/grunt-cli/bin/grunt ]; then
     (
       cd $build_dir
