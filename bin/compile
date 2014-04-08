@@ -23,9 +23,10 @@ if [ -d "$env_dir" ]; then
     echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
     export "$e=$(cat $env_dir/$e)"
     :
-    echo e
   done
 fi
+
+echo $INTERCOM_APP_ID
 
 status "Building grunt"
 
