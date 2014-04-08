@@ -26,7 +26,7 @@ if [ -d "$env_dir" ]; then
   done
 fi
 
-echo $INTERCOM_APP_ID
+printenv
 
 status "Building grunt"
 
